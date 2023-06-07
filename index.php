@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
 </head>
@@ -71,21 +71,21 @@
             
             <!-- Modal body -->
             <div class="modal-body px-4">
-                <form action="" method="post" id="form-data">
+                <form action="" method="POST" id="form-data">
                     <div class="form-group">
-                        <input type="text" name="fname" class="form-control" placeholder="First Name">
+                        <input type="text" name="fname" id="fname" class="form-control" placeholder="First Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="lname" class="form-control" placeholder="Last Name">
+                        <input type="text" name="lname" class="form-control" placeholder="Last Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" name="Phone" class="form-control" placeholder="Phone Number">
+                        <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="insert" class="btn btn-success" value="Add User" >
+                        <input type="submit" name="insert" id="insert" class="btn btn-success" value="Add User" required>
                     </div>
                 </form>
             </div>
@@ -100,9 +100,12 @@
     </div>
 
     <!-- SCRIPTS -->
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -119,7 +122,6 @@
                     type: "POST",
                     data: { action:"view"},
                     success: (response) => {
-                        console.log(response);
                         $("#showUser").html(response);
                         $("table").DataTable({
                             order: [0, 'desc']
@@ -127,6 +129,28 @@
                     }
                 });
             }
+
+            // insert ajax request
+            $("#insert").click((e) => {
+                if($("#form-data")[0].checkValidity()) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: "action.php",
+                        type: "POST",
+                        data: $("#form-data").serialize()+"&action=insert",
+                        success: (response) => {
+                            console.log(response);
+                            Swal.fire({
+                                title: 'User added successfully',
+                                type: 'success'
+                            })
+                            $("#addModal").modal('hide');
+                            $("#form-data")[0].reset();
+                            showAllUsers();
+                        }
+                    });
+                }
+            })
 
         });
     </script>

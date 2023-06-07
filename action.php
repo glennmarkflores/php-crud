@@ -3,6 +3,7 @@
     require_once 'db.php';
     $db = new Database();
 
+    #Get Users
     if(isset($_POST['action']) && $_POST['action'] == "view") {
         $output = '';
         $data = $db->read();
@@ -52,4 +53,13 @@
         echo '<h3 class="text-center text-secondary mt-5">:( User not found </h3>';
     }
 
+    #Insert User
+    if(isset($_POST['action']) && $_POST['action'] == "insert") {
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+
+        $db->insert($fname, $lname, $email, $phone);
+    }
 ?>
