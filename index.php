@@ -51,40 +51,8 @@
             </div>
             <div class="col-lg-12 my-4">
                 <div class="table-responsive" id="showUser">
-                    <table class="table table-striped table-hover table-sm table-bordered">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php for ($i=1; $i <= 20; $i++): ?>
-                                <tr class="text-center text-secondary">
-                                    <td> <?= $i ?></td>
-                                    <td>Joen <?= $i ?></td>
-                                    <td>Doe <?= $i ?></td>
-                                    <td>john<?= $i ?>@doe.com </td>
-                                    <td>01231241<?= $i ?></td>
-                                    <td>
-                                        <a href="#" title="View Details" class="text-success">
-                                            <i class="fas fa-info-circle"></i>
-                                        </a>
-                                        <a href="#" title="Edit" class="text-primary">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="#" title="Delete" class="text-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php endfor; ?>
-                        </tbody>
-                    </table>
+                    <!--TABLE-->
+
                 </div>
             </div>
         </div>
@@ -132,7 +100,7 @@
     </div>
 
     <!-- SCRIPTS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.js"></script>
@@ -142,7 +110,25 @@
     <script type="text/javascript">
         $(document).ready(() => {
             $("table").DataTable();
-        })
+
+            showAllUsers();
+
+            function showAllUsers() {
+                $.ajax({
+                    url: "action.php",
+                    type: "POST",
+                    data: { action:"view"},
+                    success: (response) => {
+                        console.log(response);
+                        $("#showUser").html(response);
+                        $("table").DataTable({
+                            order: [0, 'desc']
+                        });
+                    }
+                });
+            }
+
+        });
     </script>
 </body>
 </html>

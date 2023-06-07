@@ -9,7 +9,6 @@
         public function __construct() {
             try {
                 $this->conn = new PDO($this->dsn, $this->user, $this->pass);
-                echo "Successfully Connected";
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
@@ -87,13 +86,12 @@
         }
 
         public function totalRowCount() {
-            $sql = "SELECT * FROM user";
+            $sql = "SELECT * FROM users";
             $statement = $this->conn->prepare($sql);
             $statement->execute();
             $total_rows = $statement->rowCount();
             return $total_rows;
         }
-    }
 
-    $ob = new Database();
-    print_r($ob->read());
+    }
+?>
