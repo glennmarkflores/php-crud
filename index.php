@@ -45,7 +45,7 @@
                 <h4 class="font-weight-normal my-3">Crud App</h4>
             </div>
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary m-1">
+                <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#addModal">
                     <i class="fas fa-user"></i>  Add  New User
                 </button>
             </div>
@@ -90,10 +90,59 @@
         </div>
     </div>
 
+    <!-- Add New User MODAL -->
+    <div class="modal fade" id="addModal">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">Add New User</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body px-4">
+                <form action="" method="post" id="form-data">
+                    <div class="form-group">
+                        <input type="text" name="fname" class="form-control" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="lname" class="form-control" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="Phone" class="form-control" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="insert" class="btn btn-success" value="Add User" >
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- CONTROLLER -->
+    <script type="text/javascript">
+        $(document).ready(() => {
+            $("table").DataTable();
+        })
+    </script>
 </body>
 </html>
