@@ -99,6 +99,48 @@
         </div>
     </div>
 
+    <!-- Edit User MODAL -->
+    <div class="modal fade" id="editModal">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">Edit User</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body px-4">
+                <form action="" method="POST" id="edit-form-data">
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <input type="text" name="fname" id="fname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="lname" id="lname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" id="phone" class="form-control"  required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="update" id="update" class="btn btn-primary" value="Update User" required>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+
     <!-- SCRIPTS -->
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -116,6 +158,7 @@
 
             showAllUsers();
 
+            //show users ajax request
             function showAllUsers() {
                 $.ajax({
                     url: "action.php",
@@ -150,7 +193,21 @@
                         }
                     });
                 }
-            })
+            });
+
+            //edit user ajax request
+            $("body").on("click", ".editBtn", (e) => {
+                edit_id = $(this).attr('id');
+                $.ajax({
+                    url: "action.php",
+                    type: "POST",
+                    data: {edit_id:edit_id},
+                    success: (response) => {
+                       data = JSON.parse(response);
+                       $("#id").val(data.id);
+                    }
+                });
+            });
 
         });
     </script>

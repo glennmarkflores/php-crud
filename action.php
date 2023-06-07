@@ -32,13 +32,14 @@
                     <td>'. $row['email'] .'</td>
                     <td>'. $row['phone'] .'</td>
                     <td>
-                        <a href="#" title="View Details" class="text-success">
+                        <a href="#" title="View Details" class="text-success infoBtn" id="'.$row['id'].'">
                             <i class="fas fa-info-circle"></i>
                         </a>
-                        <a href="#" title="Edit" class="text-primary">
+                        <a href="#" title="Edit" class="text-primary editBtn"
+                            data-toggle="modal" data-target="#editModal" id="'.$row['id'].'">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="#" title="Delete" class="text-danger">
+                        <a href="#" title="Delete" class="text-danger delBtn" id="'.$row['id'].'">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -61,5 +62,13 @@
         $phone = $_POST['phone'];
 
         $db->insert($fname, $lname, $email, $phone);
+    }
+
+    #Edit User
+    if(isset($_POST['edit_id'])) {
+        $id = $_POST['edit_id'];
+
+        $row = $db->getUserById($id);
+        echo json_encode($row);
     }
 ?>

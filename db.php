@@ -45,7 +45,7 @@
         }
 
         public function getUserById($id) {
-            $sql = "SELECT * FROM user WHERE id = :id";
+            $sql = "SELECT * FROM users WHERE id = :id";
             $statement = $this->conn->prepare($sql);
             $statement->execute([
                 'id' => $id
@@ -76,7 +76,7 @@
         }
 
         public function delete($id) {
-            $sql = "DELETE FROM user WHERE id = :id";
+            $sql = "DELETE FROM users WHERE id = :id";
             $statement = $this->conn->prepare($sql);
             $statement->execute([
                 'id' => $id
